@@ -1,0 +1,25 @@
+# Node / Next.js
+apps/web/node_modules/
+apps/web/.next/
+apps/web/out/
+apps/web/.env.local
+
+# Python
+apps/api/__pycache__/
+apps/api/**/__pycache__/
+apps/api/.venv/
+apps/api/venv/
+apps/api/*.egg-info/
+
+# Env files
+.env
+apps/api/.env
+apps/web/.env*.local
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Local dev server logs
+*.log
