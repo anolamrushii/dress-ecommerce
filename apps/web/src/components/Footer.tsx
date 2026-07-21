@@ -1,17 +1,11 @@
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 // TODO: replace with the real profile URLs.
 const SOCIAL_LINKS = [
   { label: "Instagram", href: "#" },
   { label: "Facebook", href: "#" },
   { label: "TikTok", href: "#" },
-];
-
-const EXPLORE_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Collections", href: "/collections" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
 ];
 
 const MAP_EMBED_SRC =
@@ -51,18 +45,28 @@ const ICONS: Record<string, () => React.ReactElement> = {
 };
 
 export default function Footer() {
+  const tCommon = useTranslations("Common");
+  const tHeader = useTranslations("Header");
+  const tFooter = useTranslations("Footer");
+
+  const EXPLORE_LINKS = [
+    { label: tHeader("home"), href: "/" },
+    { label: tHeader("collections"), href: "/collections" },
+    { label: tHeader("about"), href: "/about" },
+    { label: tHeader("contact"), href: "/contact" },
+  ];
+
   return (
     <footer className="border-t border-border bg-ivory">
       <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 md:gap-8">
           <div>
-            <p className="font-heading text-xl text-charcoal">Egzona Abazi</p>
+            <p className="font-heading text-xl text-charcoal">{tCommon("brand")}</p>
             <p className="mt-1 font-body text-[0.6rem] uppercase tracking-[0.2em] text-charcoal/60">
-              Fashion Designer
+              {tCommon("tagline")}
             </p>
             <p className="mt-4 max-w-xs font-body text-sm text-charcoal/70">
-              Contemporary silhouettes, timeless craft. Made by hand in the
-              atelier.
+              {tFooter("description")}
             </p>
             <div className="mt-5 flex gap-4">
               {SOCIAL_LINKS.map((social) => {
@@ -85,7 +89,7 @@ export default function Footer() {
 
           <div>
             <p className="font-body text-xs uppercase tracking-[0.2em] text-charcoal/50">
-              Explore
+              {tFooter("explore")}
             </p>
             <ul className="mt-4 space-y-3">
               {EXPLORE_LINKS.map((link) => (
@@ -103,15 +107,13 @@ export default function Footer() {
 
           <div className="sm:col-span-2 md:col-span-2">
             <p className="font-body text-xs uppercase tracking-[0.2em] text-charcoal/50">
-              Visit the Atelier
+              {tFooter("visitAtelier")}
             </p>
-            <p className="mt-4 font-body text-sm text-charcoal/70">
-              Egzona Abazi Fashion Designer · Prishtinë, Kosovo
-            </p>
+            <p className="mt-4 font-body text-sm text-charcoal/70">{tFooter("addressLine")}</p>
             <div className="relative mt-4 aspect-[4/3] w-full max-w-md overflow-hidden border border-border sm:aspect-[16/10]">
               <iframe
                 src={MAP_EMBED_SRC}
-                title="Egzona Abazi Fashion Designer location"
+                title={tFooter("mapTitle")}
                 className="absolute inset-0 h-full w-full"
                 style={{ border: 0 }}
                 loading="lazy"
@@ -123,10 +125,10 @@ export default function Footer() {
 
         <div className="mt-12 border-t border-border pt-6 text-center">
           <p className="font-body text-xs uppercase tracking-widest text-charcoal/60">
-            &copy; {new Date().getFullYear()} Egzona Abazi. All rights reserved.
+            &copy; {new Date().getFullYear()} {tCommon("brand")}. {tFooter("rightsReserved")}
           </p>
           <p className="mt-2 font-body text-xs uppercase tracking-widest text-charcoal/40">
-            Site by{" "}
+            {tFooter("siteBy")}{" "}
             <a
               href="https://venight.com"
               target="_blank"

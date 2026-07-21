@@ -2,15 +2,17 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import type { DressImage } from "@/lib/types";
 
 export default function DressGallery({ images, name }: { images: DressImage[]; name: string }) {
   const [selected, setSelected] = useState(0);
+  const t = useTranslations("DressGallery");
 
   if (images.length === 0) {
     return (
       <div className="flex aspect-[3/4] items-center justify-center bg-ivory text-charcoal/30">
-        No images yet
+        {t("noImages")}
       </div>
     );
   }
@@ -37,7 +39,7 @@ export default function DressGallery({ images, name }: { images: DressImage[]; n
               key={image.id}
               type="button"
               onClick={() => setSelected(i)}
-              aria-label={`Show image ${i + 1} of ${images.length}`}
+              aria-label={t("showImage", { current: i + 1, total: images.length })}
               aria-current={i === selected}
               className={`relative aspect-[3/4] overflow-hidden bg-ivory transition-opacity ${
                 i === selected ? "ring-2 ring-gold" : "opacity-60 hover:opacity-100"

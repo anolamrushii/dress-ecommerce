@@ -1,9 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import type { Dress } from "@/lib/types";
 
 export default function DressCard({ dress }: { dress: Dress }) {
   const cover = dress.images[0];
+  const t = useTranslations("Common");
 
   return (
     <Link href={`/dress/${dress.slug}`} className="group block">
@@ -18,14 +20,14 @@ export default function DressCard({ dress }: { dress: Dress }) {
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-charcoal/30">
-            No image
+            {t("noImage")}
           </div>
         )}
       </div>
       <div className="mt-3 text-center">
         <h3 className="font-heading text-lg text-charcoal">{dress.name}</h3>
         <p className="font-body text-sm text-gold-dark">
-          {dress.price ? `$${dress.price}` : "Inquire for price"}
+          {dress.price ? `$${dress.price}` : t("inquireForPrice")}
         </p>
       </div>
     </Link>
