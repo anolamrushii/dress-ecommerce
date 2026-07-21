@@ -28,7 +28,8 @@ export default function DressForm({ token, initialDress, onSaved, onCancel }: Dr
   const [name, setName] = useState(initialDress?.name ?? "");
   const [slug, setSlug] = useState(initialDress?.slug ?? "");
   const [collectionId, setCollectionId] = useState(initialDress?.collection_id ?? "");
-  const [description, setDescription] = useState(initialDress?.description ?? "");
+  const [descriptionEn, setDescriptionEn] = useState(initialDress?.description_en ?? "");
+  const [descriptionSq, setDescriptionSq] = useState(initialDress?.description_sq ?? "");
   const [fabric, setFabric] = useState(initialDress?.fabric ?? "");
   const [sizes, setSizes] = useState(initialDress?.sizes?.join(", ") ?? "");
   const [price, setPrice] = useState(initialDress?.price ?? "");
@@ -72,7 +73,8 @@ export default function DressForm({ token, initialDress, onSaved, onCancel }: Dr
       name,
       slug,
       collection_id: collectionId || null,
-      description: description || null,
+      description_en: descriptionEn || null,
+      description_sq: descriptionSq || null,
       fabric: fabric || null,
       sizes: sizes
         ? sizes.split(",").map((s) => s.trim()).filter(Boolean)
@@ -167,12 +169,21 @@ export default function DressForm({ token, initialDress, onSaved, onCancel }: Dr
           />
         </div>
 
-        <div className="sm:col-span-2">
-          <label className={FIELD_LABEL}>Description</label>
+        <div>
+          <label className={FIELD_LABEL}>Description (English)</label>
           <textarea
             rows={3}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={descriptionEn}
+            onChange={(e) => setDescriptionEn(e.target.value)}
+            className={FIELD_INPUT}
+          />
+        </div>
+        <div>
+          <label className={FIELD_LABEL}>Description (Albanian)</label>
+          <textarea
+            rows={3}
+            value={descriptionSq}
+            onChange={(e) => setDescriptionSq(e.target.value)}
             className={FIELD_INPUT}
           />
         </div>

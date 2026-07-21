@@ -1,8 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import type { Collection } from "@/lib/types";
 
 export default function CollectionCard({ collection }: { collection: Collection }) {
+  const t = useTranslations("Common");
+
   return (
     <Link href={`/collections/${collection.slug}`} className="group block">
       <div className="relative aspect-[4/5] w-full overflow-hidden bg-ivory">
@@ -16,7 +19,7 @@ export default function CollectionCard({ collection }: { collection: Collection 
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center text-charcoal/30">
-            No image
+            {t("noImage")}
           </div>
         )}
       </div>

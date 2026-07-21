@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { useTranslations } from "next-intl";
 import { submitInquiry } from "@/lib/api";
 
 export default function ContactForm({ dressId }: { dressId?: string }) {
+  const t = useTranslations("ContactForm");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -28,23 +30,19 @@ export default function ContactForm({ dressId }: { dressId?: string }) {
       setMessage("");
     } catch (err) {
       setStatus("error");
-      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setError(err instanceof Error ? err.message : t("genericError"));
     }
   }
 
   if (status === "success") {
-    return (
-      <p className="font-body text-charcoal">
-        Thank you — your inquiry has been sent. Egzona&apos;s team will be in touch soon.
-      </p>
-    );
+    return <p className="font-body text-charcoal">{t("success")}</p>;
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <div>
         <label htmlFor="customer_name" className="mb-1 block font-body text-sm text-charcoal">
-          Name
+          {t("name")}
         </label>
         <input
           id="customer_name"
@@ -56,7 +54,7 @@ export default function ContactForm({ dressId }: { dressId?: string }) {
       </div>
       <div>
         <label htmlFor="email" className="mb-1 block font-body text-sm text-charcoal">
-          Email
+          {t("email")}
         </label>
         <input
           id="email"
@@ -69,7 +67,7 @@ export default function ContactForm({ dressId }: { dressId?: string }) {
       </div>
       <div>
         <label htmlFor="message" className="mb-1 block font-body text-sm text-charcoal">
-          Message
+          {t("message")}
         </label>
         <textarea
           id="message"
@@ -87,7 +85,7 @@ export default function ContactForm({ dressId }: { dressId?: string }) {
         disabled={status === "submitting"}
         className="mt-2 self-start bg-gold px-8 py-3 font-body text-sm uppercase tracking-widest text-white transition-colors hover:bg-gold-dark disabled:opacity-60"
       >
-        {status === "submitting" ? "Sending..." : "Send Inquiry"}
+        {status === "submitting" ? t("sending") : t("send")}
       </button>
     </form>
   );

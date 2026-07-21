@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useRef, type ComponentProps, type MouseEvent, type PointerEvent } from "react";
+import { Link } from "@/i18n/navigation";
 import { gsap } from "@/lib/gsap";
 
 interface MagneticLinkProps extends ComponentProps<typeof Link> {

@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 const RADIUS = 20;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 export default function BackToTop() {
+  const t = useTranslations("Common");
   const [visible, setVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -32,7 +34,7 @@ export default function BackToTop() {
   return (
     <button
       onClick={handleClick}
-      aria-label="Back to top"
+      aria-label={t("backToTop")}
       tabIndex={visible ? 0 : -1}
       className={`fixed bottom-6 right-6 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-charcoal text-ivory shadow-lg transition-all duration-300 ease-out hover:bg-gold-dark active:scale-90 sm:bottom-8 sm:right-8 ${
         visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
