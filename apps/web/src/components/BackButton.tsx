@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { Link } from "@/i18n/navigation";
 
 const ARROW = (
   <svg
@@ -27,19 +28,21 @@ const CLASSNAME =
 
 export default function BackButton({
   href,
-  label = "Back",
+  label,
 }: {
   /** When set, navigates to this path instead of going back in browser history. */
   href?: string;
   label?: string;
 }) {
   const router = useRouter();
+  const t = useTranslations("Common");
+  const resolvedLabel = label ?? t("back");
 
   if (href) {
     return (
       <Link href={href} className={CLASSNAME}>
         {ARROW}
-        {label}
+        {resolvedLabel}
       </Link>
     );
   }
@@ -47,7 +50,7 @@ export default function BackButton({
   return (
     <button onClick={() => router.back()} className={CLASSNAME}>
       {ARROW}
-      {label}
+      {resolvedLabel}
     </button>
   );
 }

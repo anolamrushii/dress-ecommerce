@@ -1,43 +1,25 @@
-const PRINCIPLES = [
-  {
-    number: "01",
-    title: "Line before ornament",
-    description:
-      "We draw the silhouette until it is right on the body. Everything else is added last, or not at all.",
-  },
-  {
-    number: "02",
-    title: "Small, numbered runs",
-    description:
-      "No piece is produced in more than a handful. Each garment is recorded in the atelier archive.",
-  },
-  {
-    number: "03",
-    title: "Fabric that ages well",
-    description:
-      "Silks, wools and laces chosen for how they behave in ten years, not ten minutes.",
-  },
-  {
-    number: "04",
-    title: "Finished by hand",
-    description:
-      "Every hem, every buttonhole, every bead. If it can be done by hand, it is.",
-  },
-];
+import { useTranslations } from "next-intl";
 
 export default function Principles() {
+  const t = useTranslations("About.principles");
+
+  const principles = [
+    { number: "01", title: t("item1Title"), description: t("item1Text") },
+    { number: "02", title: t("item2Title"), description: t("item2Text") },
+    { number: "03", title: t("item3Title"), description: t("item3Text") },
+    { number: "04", title: t("item4Title"), description: t("item4Text") },
+  ];
+
   return (
     <section className="mx-auto max-w-6xl px-6 py-16 text-center md:py-24">
       <p className="font-body text-xs uppercase tracking-[0.2em] text-gold-dark">
-        Principles
+        {t("eyebrow")}
       </p>
-      <h2 className="mt-3 font-heading text-3xl text-charcoal md:text-4xl">
-        How the atelier works
-      </h2>
+      <h2 className="mt-3 font-heading text-3xl text-charcoal md:text-4xl">{t("heading")}</h2>
       <div className="mx-auto mt-4 h-px w-10 bg-gold" />
 
       <div className="mt-12 grid grid-cols-1 gap-x-12 gap-y-10 text-left sm:grid-cols-2">
-        {PRINCIPLES.map((principle) => (
+        {principles.map((principle) => (
           <div key={principle.number} className="border-t border-border pt-6">
             <p className="font-heading text-xl text-gold-dark">{principle.number}</p>
             <h3 className="mt-2 font-heading text-xl text-charcoal">{principle.title}</h3>

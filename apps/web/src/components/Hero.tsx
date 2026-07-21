@@ -1,7 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import fs from "node:fs";
 import path from "node:path";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 const HERO_IMAGE_CANDIDATES = ["/images/hero-banner.jpg", "/images/hero-banner.png"];
 
@@ -16,6 +17,8 @@ function findHeroImage(): string | null {
 
 export default function Hero() {
   const heroImage = findHeroImage();
+  const t = useTranslations("Hero");
+  const tCommon = useTranslations("Common");
 
   return (
     <section className="relative flex min-h-[100svh] flex-col overflow-hidden bg-charcoal md:min-h-[92vh]">
@@ -44,20 +47,19 @@ export default function Hero() {
 
       <div className="relative flex flex-1 flex-col justify-between px-6 py-8 md:px-12 md:py-10">
         <div className="flex items-start justify-between font-body text-[0.65rem] uppercase tracking-[0.2em] text-white/70">
-          <span>Autumn / Winter — Édition N°07</span>
-          <span className="hidden md:inline">Prishtinë · Milano</span>
+          <span>{t("edition")}</span>
+          <span className="hidden md:inline">{t("locations")}</span>
         </div>
 
         <div className="mx-auto flex max-w-3xl flex-col items-center px-2 text-center">
           <span className="font-body text-xs uppercase tracking-[0.25em] text-white/80">
-            Egzona Abazi
+            {tCommon("brand")}
           </span>
           <h1 className="mt-4 font-heading text-4xl leading-[1.1] text-white sm:text-5xl md:text-6xl">
-            Contemporary silhouettes, timeless craft.
+            {t("headline")}
           </h1>
           <p className="mt-5 max-w-md font-body text-sm text-white/80 sm:max-w-xl sm:text-base">
-            A wardrobe drafted by hand, in limited runs — made to outlive the
-            season it was born in.
+            {t("subtext")}
           </p>
 
           <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-4">
@@ -65,13 +67,13 @@ export default function Hero() {
               href="/collections"
               className="border border-white/70 px-8 py-3 text-center font-body text-xs uppercase tracking-widest text-white transition-colors hover:bg-white hover:text-charcoal sm:text-sm"
             >
-              Shop Collection
+              {t("shopCollection")}
             </Link>
             <Link
               href="/about"
               className="px-8 py-3 text-center font-body text-xs uppercase tracking-widest text-white/90 transition-colors hover:text-gold-light sm:text-sm"
             >
-              The Atelier →
+              {t("theAtelier")}
             </Link>
           </div>
         </div>

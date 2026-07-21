@@ -1,18 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import NextLink from "next/link";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 
-const LEFT_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/collections", label: "Collections" },
-];
-
-const RIGHT_LINKS = [
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
+function useNavLinks() {
+  const t = useTranslations("Header");
+  return {
+    left: [
+      { href: "/", label: t("home") },
+      { href: "/collections", label: t("collections") },
+    ],
+    right: [
+      { href: "/about", label: t("about") },
+      { href: "/contact", label: t("contact") },
+    ],
+  };
+}
 
 function NavLink({ href, label }: { href: string; label: string }) {
   const pathname = usePathname();
@@ -73,15 +78,38 @@ function MenuIcon() {
   );
 }
 
+function LanguageSwitcher() {
+  const pathname = usePathname();
+
+  // Admin isn't part of the localized route tree, so switching locale on an
+  // admin path would 404 — hide the switcher there.
+  if (pathname.startsWith("/admin")) return null;
+
+  return (
+    <div className="flex items-center gap-1 font-body text-[0.65rem] font-medium uppercase tracking-widest text-charcoal/60">
+      <Link href={pathname} locale="en" className="transition-colors hover:text-gold">
+        EN
+      </Link>
+      <span aria-hidden="true">/</span>
+      <Link href={pathname} locale="sq" className="transition-colors hover:text-gold">
+        SQ
+      </Link>
+    </div>
+  );
+}
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { left: LEFT_LINKS, right: RIGHT_LINKS } = useNavLinks();
+  const tHeader = useTranslations("Header");
+  const tCommon = useTranslations("Common");
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-white/90 backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 md:h-20">
         <button
           className="text-charcoal md:hidden"
-          aria-label="Menu"
+          aria-label={tHeader("menu")}
           onClick={() => setMenuOpen((open) => !open)}
         >
           <MenuIcon />
@@ -95,29 +123,33 @@ export default function Header() {
 
         <Link href="/" className="text-center">
           <div className="font-heading text-2xl leading-none tracking-tight text-charcoal md:text-3xl">
-            Egzona Abazi
+            {tCommon("brand")}
           </div>
           <div className="mt-1 font-body text-[0.55rem] uppercase tracking-[0.22em] text-muted-foreground">
-            Fashion Designer
+            {tCommon("tagline")}
           </div>
         </Link>
 
-        <div className="hidden items-center gap-10 md:flex">
+        <div className="hidden items-center gap-8 md:flex">
           {RIGHT_LINKS.map((link) => (
             <NavLink key={link.href} href={link.href} label={link.label} />
           ))}
-          <Link
+          <LanguageSwitcher />
+          <NextLink
             href="/admin/login"
-            aria-label="Admin"
+            aria-label={tHeader("admin")}
             className="text-charcoal transition-colors hover:text-gold"
           >
             <AdminIcon className="h-5 w-5" />
-          </Link>
+          </NextLink>
         </div>
 
-        <Link href="/admin/login" aria-label="Admin" className="text-charcoal md:hidden">
-          <AdminIcon className="h-5 w-5" />
-        </Link>
+        <div className="flex items-center gap-3 md:hidden">
+          <LanguageSwitcher />
+          <NextLink href="/admin/login" aria-label={tHeader("admin")} className="text-charcoal">
+            <AdminIcon className="h-5 w-5" />
+          </NextLink>
+        </div>
       </div>
 
       {menuOpen && (

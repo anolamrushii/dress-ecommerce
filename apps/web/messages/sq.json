@@ -1,0 +1,162 @@
+{
+  "Common": {
+    "brand": "Egzona Abazi",
+    "tagline": "Stiliste e Modës",
+    "back": "Kthehu",
+    "backToHome": "Kthehu te Kreu",
+    "inquireForPrice": "Kërkoni çmimin",
+    "noImage": "Pa foto"
+  },
+  "Header": {
+    "home": "Kreu",
+    "collections": "Koleksionet",
+    "about": "Rreth Nesh",
+    "contact": "Kontakt",
+    "menu": "Menuja",
+    "admin": "Admin",
+    "language": "Gjuha"
+  },
+  "Footer": {
+    "description": "Siluetat bashkëkohore, artizanat i përjetshëm. Bërë me dorë në atelie.",
+    "explore": "Eksploro",
+    "visitAtelier": "Vizitoni Atelienë",
+    "addressLine": "Egzona Abazi Stiliste Modë · Prishtinë, Kosovë",
+    "mapTitle": "Vendndodhja e Egzona Abazi Stiliste Modë",
+    "rightsReserved": "Të gjitha të drejtat e rezervuara.",
+    "siteBy": "Faqja nga"
+  },
+  "Hero": {
+    "edition": "Vjeshtë / Dimër — Edicioni N°07",
+    "locations": "Prishtinë · Milano",
+    "eyebrow": "Egzona Abazi",
+    "headline": "Siluetat bashkëkohore, artizanat i përjetshëm.",
+    "subtext": "Një gardërobë e krijuar me dorë, në sasi të kufizuara — e bërë për t'i mbijetuar sezonit në të cilin lindi.",
+    "shopCollection": "Shiko Koleksionin",
+    "theAtelier": "Atelieja →"
+  },
+  "Stats": {
+    "handmade": "Bërë me dorë në atelie",
+    "limitedRuns": "Sasi të kufizuara · Pjesë të numëruara",
+    "fittings": "Prova falas",
+    "shipping": "Dërgesë në mbarë botën"
+  },
+  "SignaturePieces": {
+    "heading": "Pjesët Distinktive",
+    "subtext": "Një përzgjedhje nga edicioni aktual — prerë, drapuar dhe përfunduar në studio këtë sezon.",
+    "comingSoon": "Së Shpejti",
+    "comingSoonHeading": "Edicioni i ri po përfundohet me dorë",
+    "comingSoonText": "Pjesët distinktive do të shfaqen këtu sapo të publikohen. Ndërkohë, shfletoni arkivin ose shkruani në atelie për një pamje private paraprake.",
+    "browseArchive": "Shfleto Arkivin",
+    "requestPreview": "Kërko një Pamje Paraprake",
+    "exploreAll": "Eksploro të Gjitha Koleksionet"
+  },
+  "Wardrobe": {
+    "eyebrow": "Gardëroba",
+    "heading": "Tri mënyra për t'u veshur nga Egzona.",
+    "viewAll": "Shiko të Gjitha →"
+  },
+  "DesignerBio": {
+    "estSince": "Themeluar 2016",
+    "eyebrow": "Stilistja",
+    "heading": "Një vijë e përsosur — kjo është e gjithë praktika.",
+    "paragraph1": "Egzona Abazi është një stiliste modë e njohur për fustane elegante, të punuara me dorë, që bashkojnë siluetat e përjetshme me detaje moderne. Çdo pjesë hartohet, pritet dhe përfundohet në atelie — kurrë e nënkontraktuar, kurrë me nxitim.",
+    "paragraph2": "Rezultati është një gardërobë që mund ta mbani për një jetë të tërë: siluetat që ruajnë formën, tegelat që mund t'i vishni së prapthi, pëlhurat që plaken ashtu siç duhet.",
+    "statYears": "Vite në Praktikë",
+    "statCommissions": "Porosi të Personalizuara",
+    "statHandmade": "Bërë me Dorë",
+    "readHerStory": "Lexo Historinë e Saj"
+  },
+  "Testimonial": {
+    "eyebrow": "Me Fjalët e Tyre",
+    "quote": "„Ajo dëgjoi për një orë të tërë para se të vizatonte një vijë të vetme. Ajo që erdhi dymbëdhjetë javë më vonë ishte fustani që nuk e dija se e kisha përshkruar gjithë jetën time.”",
+    "attribution": "Emri i Klientes · Porosi Nusërie"
+  },
+  "About": {
+    "metaTitle": "Rreth Nesh | Egzona Abazi",
+    "intro": {
+      "eyebrow": "Stilistja",
+      "heading": "Egzona Abazi",
+      "paragraph1": "Egzona Abazi është një stiliste modë e njohur për fustane elegante, të punuara me dorë, që bashkojnë siluetat e përjetshme me detaje moderne. Çdo pjesë e koleksionit hartohet me kujdes të madh ndaj pëlhurës, prerjes dhe finesës.",
+      "paragraph2": "Nga fustanet e mbrëmjes te ato të nusërisë, çdo fustan krijohet për t'u veshur në momentet më të paharrueshme të jetës. Shfletoni koleksionet për të gjetur pjesën që ju flet, dhe na kontaktoni për çdo pyetje — ekipi është i lumtur t'ju ndihmojë me masat, pëlhurën dhe disponueshmërinë.",
+      "seeWork": "Shiko Punën",
+      "writeAtelier": "Shkruaj Atelienë",
+      "inTheAtelier": "Në Atelie",
+      "prishtina": "Prishtinë"
+    },
+    "manifesto": {
+      "eyebrow": "Manifesti",
+      "quote": "„Një fustan nuk duhet ta njoftojë veten. Duhet ta mbajë gruan brenda tij — qetësisht, me saktësi — dhe pastaj të zhduket.”",
+      "attribution": "— Egzona Abazi"
+    },
+    "principles": {
+      "eyebrow": "Parimet",
+      "heading": "Si funksionon atelieja",
+      "item1Title": "Vija para zbukurimit",
+      "item1Text": "E vizatojmë siluetën derisa të jetë e saktë në trup. Gjithçka tjetër shtohet e fundit, ose aspak.",
+      "item2Title": "Sasi të vogla, të numëruara",
+      "item2Text": "Asnjë pjesë nuk prodhohet në më shumë se pak copë. Çdo veshje regjistrohet në arkivin e ateliesë.",
+      "item3Title": "Pëlhurë që plaket mirë",
+      "item3Text": "Mëndafsh, lesh dhe dantella të zgjedhura për mënyrën si sillen pas dhjetë vjetësh, jo dhjetë minutash.",
+      "item4Title": "Përfunduar me dorë",
+      "item4Text": "Çdo cep, çdo vrimë butoni, çdo xhevahir. Nëse mund të bëhet me dorë, bëhet me dorë."
+    },
+    "craft": {
+      "eyebrow": "Zanati",
+      "heading": "Duar, fije, orë.",
+      "text": "Një fustan i vetëm mbrëmjeje kërkon midis 60 dhe 200 orë pune në atelie. Qëndisja, buzët e mbajtura me dorë dhe fodrat prej mëndafshi zënë pjesën më të madhe të tyre.",
+      "imageAlt": "Një fustan i përfunduar në atelie"
+    },
+    "house": {
+      "eyebrow": "Shtëpia",
+      "heading": "Një histori e shkurtër",
+      "m1Title": "Formimi",
+      "m1Text": "Studime në dizajn mode mes Prishtinës dhe Milanos.",
+      "m2Title": "Ateljeja hapet",
+      "m2Text": "Porositë e para private — mbrëmje dhe nusëri, vetëm me referim.",
+      "m3Title": "Edicioni i parë",
+      "m3Text": "Kapsula e parë ready-to-wear, e prezantuar në një mbrëmje të vetme.",
+      "m4Title": "Linja e kouturës",
+      "m4Text": "Prezantimi i rrobave me porosi me protokollin e tri provave.",
+      "m5Year": "Sot",
+      "m5Title": "Pjesë të numëruara",
+      "m5Text": "Shitur ndërkombëtarisht, ende përfunduar nga të njëjtat duar."
+    },
+    "appointments": {
+      "eyebrow": "Takime Private",
+      "text": "Prova me takim në atelienë në Prishtinë, dhe me kërkesë kur jemi në udhëtim.",
+      "cta": "Kërko një Takim"
+    }
+  },
+  "Collections": {
+    "metaTitle": "Koleksionet | Egzona Abazi",
+    "heading": "Koleksionet",
+    "empty": "Ende nuk ka koleksione të publikuara. Ju lutemi kontrolloni përsëri së shpejti."
+  },
+  "CollectionDetail": {
+    "noDresses": "Ende nuk ka fustane të publikuara në këtë koleksion."
+  },
+  "DressDetail": {
+    "inquireHeading": "Pyetni Për Këtë Fustan",
+    "inquireText": "Dërgoni një mesazh dhe ekipi i Egzonës do t'ju kontaktojë për disponueshmërinë dhe çmimin.",
+    "fabric": "Pëlhura:",
+    "sizes": "Madhësitë:"
+  },
+  "DressGallery": {
+    "noImages": "Ende pa foto",
+    "showImage": "Shfaq foton {current} nga {total}"
+  },
+  "Contact": {
+    "metaTitle": "Kontakt | Egzona Abazi",
+    "heading": "Kontakt",
+    "subtext": "Keni një pyetje për një fustan, madhësinë, ose një porosi të personalizuar? Dërgoni një mesazh më poshtë."
+  },
+  "ContactForm": {
+    "name": "Emri",
+    "email": "Email",
+    "message": "Mesazhi",
+    "send": "Dërgo Kërkesën",
+    "sending": "Duke dërguar...",
+    "success": "Faleminderit — kërkesa juaj u dërgua. Ekipi i Egzonës do t'ju kontaktojë së shpejti.",
+    "genericError": "Diçka shkoi keq. Ju lutemi provoni përsëri."
+  }
+}

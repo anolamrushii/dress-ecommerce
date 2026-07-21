@@ -26,7 +26,8 @@ export default function CollectionForm({
   const [name, setName] = useState(initialCollection?.name ?? "");
   const [slug, setSlug] = useState(initialCollection?.slug ?? "");
   const [season, setSeason] = useState(initialCollection?.season ?? "");
-  const [description, setDescription] = useState(initialCollection?.description ?? "");
+  const [descriptionEn, setDescriptionEn] = useState(initialCollection?.description_en ?? "");
+  const [descriptionSq, setDescriptionSq] = useState(initialCollection?.description_sq ?? "");
   const [existingCoverImageUrl, setExistingCoverImageUrl] = useState(
     initialCollection?.cover_image_url ?? "",
   );
@@ -62,7 +63,8 @@ export default function CollectionForm({
       name,
       slug,
       season: season || null,
-      description: description || null,
+      description_en: descriptionEn || null,
+      description_sq: descriptionSq || null,
       is_published: isPublished,
     };
 
@@ -115,12 +117,21 @@ export default function CollectionForm({
             className={FIELD_INPUT}
           />
         </div>
-        <div className="sm:col-span-2">
-          <label className={FIELD_LABEL}>Description</label>
+        <div>
+          <label className={FIELD_LABEL}>Description (English)</label>
           <textarea
             rows={3}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={descriptionEn}
+            onChange={(e) => setDescriptionEn(e.target.value)}
+            className={FIELD_INPUT}
+          />
+        </div>
+        <div>
+          <label className={FIELD_LABEL}>Description (Albanian)</label>
+          <textarea
+            rows={3}
+            value={descriptionSq}
+            onChange={(e) => setDescriptionSq(e.target.value)}
             className={FIELD_INPUT}
           />
         </div>

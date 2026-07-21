@@ -1,0 +1,162 @@
+{
+  "Common": {
+    "brand": "Egzona Abazi",
+    "tagline": "Fashion Designer",
+    "back": "Back",
+    "backToHome": "Back to Home",
+    "inquireForPrice": "Inquire for price",
+    "noImage": "No image"
+  },
+  "Header": {
+    "home": "Home",
+    "collections": "Collections",
+    "about": "About",
+    "contact": "Contact",
+    "menu": "Menu",
+    "admin": "Admin",
+    "language": "Language"
+  },
+  "Footer": {
+    "description": "Contemporary silhouettes, timeless craft. Made by hand in the atelier.",
+    "explore": "Explore",
+    "visitAtelier": "Visit the Atelier",
+    "addressLine": "Egzona Abazi Fashion Designer · Prishtinë, Kosovo",
+    "mapTitle": "Egzona Abazi Fashion Designer location",
+    "rightsReserved": "All rights reserved.",
+    "siteBy": "Site by"
+  },
+  "Hero": {
+    "edition": "Autumn / Winter — Édition N°07",
+    "locations": "Prishtinë · Milano",
+    "eyebrow": "Egzona Abazi",
+    "headline": "Contemporary silhouettes, timeless craft.",
+    "subtext": "A wardrobe drafted by hand, in limited runs — made to outlive the season it was born in.",
+    "shopCollection": "Shop Collection",
+    "theAtelier": "The Atelier →"
+  },
+  "Stats": {
+    "handmade": "Handmade in the Atelier",
+    "limitedRuns": "Limited Runs · Numbered Pieces",
+    "fittings": "Complimentary Fittings",
+    "shipping": "Worldwide Shipping"
+  },
+  "SignaturePieces": {
+    "heading": "Signature Pieces",
+    "subtext": "A selection from the current édition — cut, draped and finished in the studio this season.",
+    "comingSoon": "Coming Soon",
+    "comingSoonHeading": "The new édition is being finished by hand",
+    "comingSoonText": "Signature pieces will appear here once released. In the meantime, browse the archive or write to the atelier for a private preview.",
+    "browseArchive": "Browse Archive",
+    "requestPreview": "Request a Preview",
+    "exploreAll": "Explore All Collections"
+  },
+  "Wardrobe": {
+    "eyebrow": "The Wardrobe",
+    "heading": "Three ways to be dressed by Egzona.",
+    "viewAll": "View All →"
+  },
+  "DesignerBio": {
+    "estSince": "Est. 2016",
+    "eyebrow": "The Designer",
+    "heading": "A single perfect line — that is the whole practice.",
+    "paragraph1": "Egzona Abazi is a fashion designer known for elegant, handcrafted dresses that blend timeless silhouettes with modern detail. Every piece is drafted, cut, and finished in the atelier — never sub-contracted, never rushed.",
+    "paragraph2": "The result is a wardrobe you can keep for a lifetime: silhouettes that hold their shape, seams you can wear inside-out, fabrics that age the way they should.",
+    "statYears": "Years in Practice",
+    "statCommissions": "Bespoke Commissions",
+    "statHandmade": "Made by Hand",
+    "readHerStory": "Read Her Story"
+  },
+  "Testimonial": {
+    "eyebrow": "In Their Words",
+    "quote": "“She listened for an hour before she drew a single line. What arrived twelve weeks later was the dress I didn't know I'd been describing my whole life.”",
+    "attribution": "Client Name · Bridal Commission"
+  },
+  "About": {
+    "metaTitle": "About | Egzona Abazi",
+    "intro": {
+      "eyebrow": "The Designer",
+      "heading": "Egzona Abazi",
+      "paragraph1": "Egzona Abazi is a fashion designer known for elegant, handcrafted dresses that blend timeless silhouettes with modern detail. Every piece in the collection is designed with meticulous attention to fabric, fit, and finish.",
+      "paragraph2": "From evening gowns to bridal pieces, each dress is created to be worn for life's most memorable occasions. Browse the collections to find a piece that speaks to you, and reach out with any questions — the team is happy to help with sizing, fabric, and availability.",
+      "seeWork": "See the Work",
+      "writeAtelier": "Write to the Atelier",
+      "inTheAtelier": "In the Atelier",
+      "prishtina": "Prishtinë"
+    },
+    "manifesto": {
+      "eyebrow": "Manifesto",
+      "quote": "“A dress should not announce itself. It should hold the woman inside it — quietly, precisely — and then disappear.”",
+      "attribution": "— Egzona Abazi"
+    },
+    "principles": {
+      "eyebrow": "Principles",
+      "heading": "How the atelier works",
+      "item1Title": "Line before ornament",
+      "item1Text": "We draw the silhouette until it is right on the body. Everything else is added last, or not at all.",
+      "item2Title": "Small, numbered runs",
+      "item2Text": "No piece is produced in more than a handful. Each garment is recorded in the atelier archive.",
+      "item3Title": "Fabric that ages well",
+      "item3Text": "Silks, wools and laces chosen for how they behave in ten years, not ten minutes.",
+      "item4Title": "Finished by hand",
+      "item4Text": "Every hem, every buttonhole, every bead. If it can be done by hand, it is."
+    },
+    "craft": {
+      "eyebrow": "The Craft",
+      "heading": "Hands, thread, hours.",
+      "text": "A single evening dress takes between 60 and 200 hours in the atelier. Beading, hand-rolled hems and silk linings account for most of them.",
+      "imageAlt": "A dress finished in the atelier"
+    },
+    "house": {
+      "eyebrow": "The House",
+      "heading": "A short history",
+      "m1Title": "Formation",
+      "m1Text": "Studies in fashion design between Prishtinë and Milan.",
+      "m2Title": "The atelier opens",
+      "m2Text": "First private commissions — evening and bridal, by referral only.",
+      "m3Title": "First édition",
+      "m3Text": "The debut ready-to-wear capsule, presented in a single evening.",
+      "m4Title": "Couture line",
+      "m4Text": "Introduction of made-to-measure with a three-fitting protocol.",
+      "m5Year": "Today",
+      "m5Title": "Numbered pieces",
+      "m5Text": "Sold internationally, still finished by the same hands."
+    },
+    "appointments": {
+      "eyebrow": "Private Appointments",
+      "text": "Fittings by appointment at the atelier in Prishtinë, and on request while traveling.",
+      "cta": "Request an Appointment"
+    }
+  },
+  "Collections": {
+    "metaTitle": "Collections | Egzona Abazi",
+    "heading": "Collections",
+    "empty": "No collections published yet. Please check back soon."
+  },
+  "CollectionDetail": {
+    "noDresses": "No dresses published in this collection yet."
+  },
+  "DressDetail": {
+    "inquireHeading": "Inquire About This Dress",
+    "inquireText": "Send a message and Egzona's team will follow up with availability and pricing.",
+    "fabric": "Fabric:",
+    "sizes": "Sizes:"
+  },
+  "DressGallery": {
+    "noImages": "No images yet",
+    "showImage": "Show image {current} of {total}"
+  },
+  "Contact": {
+    "metaTitle": "Contact | Egzona Abazi",
+    "heading": "Contact",
+    "subtext": "Have a question about a dress, sizing, or a custom order? Send a message below."
+  },
+  "ContactForm": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Inquiry",
+    "sending": "Sending...",
+    "success": "Thank you — your inquiry has been sent. Egzona's team will be in touch soon.",
+    "genericError": "Something went wrong. Please try again."
+  }
+}
