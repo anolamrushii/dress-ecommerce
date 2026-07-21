@@ -3,6 +3,8 @@
 import { useState, type FormEvent } from "react";
 import { createCollection, updateCollection } from "@/lib/api";
 import type { Collection } from "@/lib/types";
+import { BUTTON_PRIMARY, BUTTON_SECONDARY, FIELD_INPUT, FIELD_LABEL } from "@/lib/adminStyles";
+import Toggle from "./Toggle";
 
 interface CollectionFormProps {
   token: string;
@@ -56,83 +58,72 @@ export default function CollectionForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      <div>
-        <label className="mb-1 block font-body text-sm text-charcoal">Name</label>
-        <input
-          required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full border border-gold-light bg-white px-4 py-2 font-body text-charcoal focus:border-gold focus:outline-none"
-        />
-      </div>
-      <div>
-        <label className="mb-1 block font-body text-sm text-charcoal">Slug</label>
-        <input
-          required
-          value={slug}
-          onChange={(e) => setSlug(e.target.value)}
-          placeholder="spring-2026"
-          className="w-full border border-gold-light bg-white px-4 py-2 font-body text-charcoal focus:border-gold focus:outline-none"
-        />
+    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div>
+          <label className={FIELD_LABEL}>Name</label>
+          <input
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className={FIELD_INPUT}
+          />
+        </div>
+        <div>
+          <label className={FIELD_LABEL}>Slug</label>
+          <input
+            required
+            value={slug}
+            onChange={(e) => setSlug(e.target.value)}
+            placeholder="spring-2026"
+            className={FIELD_INPUT}
+          />
+        </div>
+
+        <div>
+          <label className={FIELD_LABEL}>Season</label>
+          <input
+            value={season}
+            onChange={(e) => setSeason(e.target.value)}
+            placeholder="Spring/Summer 2026"
+            className={FIELD_INPUT}
+          />
+        </div>
+        <div>
+          <label className={FIELD_LABEL}>Cover image URL</label>
+          <input
+            value={coverImageUrl}
+            onChange={(e) => setCoverImageUrl(e.target.value)}
+            placeholder="https://res.cloudinary.com/..."
+            className={FIELD_INPUT}
+          />
+        </div>
+
+        <div className="sm:col-span-2">
+          <label className={FIELD_LABEL}>Description</label>
+          <textarea
+            rows={3}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className={FIELD_INPUT}
+          />
+        </div>
       </div>
 
-      <div>
-        <label className="mb-1 block font-body text-sm text-charcoal">Season</label>
-        <input
-          value={season}
-          onChange={(e) => setSeason(e.target.value)}
-          placeholder="Spring/Summer 2026"
-          className="w-full border border-gold-light bg-white px-4 py-2 font-body text-charcoal focus:border-gold focus:outline-none"
-        />
-      </div>
-      <div>
-        <label className="mb-1 block font-body text-sm text-charcoal">Cover image URL</label>
-        <input
-          value={coverImageUrl}
-          onChange={(e) => setCoverImageUrl(e.target.value)}
-          placeholder="https://res.cloudinary.com/..."
-          className="w-full border border-gold-light bg-white px-4 py-2 font-body text-charcoal focus:border-gold focus:outline-none"
-        />
-      </div>
+      <Toggle
+        checked={isPublished}
+        onChange={setIsPublished}
+        label="Published"
+        description="Visible on the public site"
+      />
 
-      <div className="sm:col-span-2">
-        <label className="mb-1 block font-body text-sm text-charcoal">Description</label>
-        <textarea
-          rows={3}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="w-full border border-gold-light bg-white px-4 py-2 font-body text-charcoal focus:border-gold focus:outline-none"
-        />
-      </div>
+      {error && <p className="font-body text-sm text-red-600">{error}</p>}
 
-      <div className="flex items-center gap-2">
-        <input
-          id="is_published"
-          type="checkbox"
-          checked={isPublished}
-          onChange={(e) => setIsPublished(e.target.checked)}
-        />
-        <label htmlFor="is_published" className="font-body text-sm text-charcoal">
-          Published (visible on the public site)
-        </label>
-      </div>
-
-      {error && <p className="font-body text-sm text-red-600 sm:col-span-2">{error}</p>}
-
-      <div className="flex gap-3 sm:col-span-2">
-        <button
-          type="submit"
-          disabled={submitting}
-          className="bg-gold px-8 py-3 font-body text-sm uppercase tracking-widest text-white transition-colors hover:bg-gold-dark disabled:opacity-60"
-        >
+      <div className="flex flex-col gap-3 sm:flex-row">
+        <button type="submit" disabled={submitting} className={BUTTON_PRIMARY}>
           {submitting ? "Saving..." : isEditing ? "Save Changes" : "Add Collection"}
         </button>
-        <button
-          type="button"
-          onClick={onCancel}
-          className="border border-gold-light px-8 py-3 font-body text-sm uppercase tracking-widest text-charcoal transition-colors hover:bg-ivory"
-        >
+        <button type="button" onClick={onCancel} className={BUTTON_SECONDARY}>
           Cancel
         </button>
       </div>

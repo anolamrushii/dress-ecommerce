@@ -1,13 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { deleteDress, getDresses } from "@/lib/api";
 import { clearToken, getToken } from "@/lib/auth";
 import type { Dress } from "@/lib/types";
 import DressTable from "@/components/admin/DressTable";
 import DressForm from "@/components/admin/DressForm";
+import AdminNav from "@/components/admin/AdminNav";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import Modal from "@/components/admin/Modal";
+import FabButton from "@/components/admin/FabButton";
+import { FIELD_INPUT } from "@/lib/adminStyles";
 
 export default function AdminDashboardPage() {
   const router = useRouter();
@@ -16,6 +20,7 @@ export default function AdminDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingDress, setEditingDress] = useState<Dress | null>(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const t = getToken();
@@ -69,61 +74,61 @@ export default function AdminDashboardPage() {
     if (token) loadDresses(token);
   }
 
+  function closeForm() {
+    setShowForm(false);
+    setEditingDress(null);
+  }
+
+  const filteredDresses = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return dresses;
+    return dresses.filter(
+      (d) => d.name.toLowerCase().includes(q) || d.slug.toLowerCase().includes(q),
+    );
+  }, [dresses, search]);
+
   if (!token) return null;
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-heading text-3xl text-charcoal">Dress Dashboard</h1>
-          <Link
-            href="/admin/collections"
-            className="font-body text-sm text-charcoal/60 hover:text-gold-dark hover:underline"
-          >
-            Manage collections &rarr;
-          </Link>
-        </div>
-        <button
-          onClick={handleLogout}
-          className="font-body text-sm text-charcoal/60 hover:text-gold-dark hover:underline"
-        >
-          Log out
-        </button>
+    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
+      <AdminNav onLogout={handleLogout} />
+
+      <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="font-heading text-2xl text-charcoal sm:text-3xl">
+          Dresses <span className="text-lg text-muted-foreground">({dresses.length})</span>
+        </h1>
+        {dresses.length > 0 && (
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search by name or slug..."
+            className={`${FIELD_INPUT} sm:max-w-xs`}
+          />
+        )}
       </div>
 
-      <div className="mt-10">
+      <div className="mt-6 pb-24">
         {loading ? (
-          <p className="font-body text-charcoal/60">Loading...</p>
+          <LoadingSpinner />
         ) : (
-          <DressTable dresses={dresses} onEdit={handleEdit} onDelete={handleDelete} />
+          <DressTable dresses={filteredDresses} onEdit={handleEdit} onDelete={handleDelete} />
         )}
       </div>
 
-      <div className="mt-12 border-t border-gold-light/40 pt-10">
-        {showForm ? (
-          <>
-            <h2 className="mb-6 font-heading text-2xl text-charcoal">
-              {editingDress ? `Edit "${editingDress.name}"` : "Add New Dress"}
-            </h2>
-            <DressForm
-              token={token}
-              initialDress={editingDress}
-              onSaved={handleSaved}
-              onCancel={() => {
-                setShowForm(false);
-                setEditingDress(null);
-              }}
-            />
-          </>
-        ) : (
-          <button
-            onClick={handleAddNew}
-            className="bg-gold px-8 py-3 font-body text-sm uppercase tracking-widest text-white transition-colors hover:bg-gold-dark"
-          >
-            Add New Dress
-          </button>
-        )}
-      </div>
+      <FabButton onClick={handleAddNew} label="Add new dress" />
+
+      <Modal
+        open={showForm}
+        onClose={closeForm}
+        title={editingDress ? `Edit "${editingDress.name}"` : "Add New Dress"}
+      >
+        <DressForm
+          token={token}
+          initialDress={editingDress}
+          onSaved={handleSaved}
+          onCancel={closeForm}
+        />
+      </Modal>
     </div>
   );
 }

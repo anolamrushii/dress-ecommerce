@@ -3,6 +3,7 @@ apps/web/node_modules/
 apps/web/.next/
 apps/web/out/
 apps/web/.env.local
+apps/web/tsconfig.tsbuildinfo
 
 # Python
 apps/api/__pycache__/

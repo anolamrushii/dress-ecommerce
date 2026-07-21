@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ApiError, getDress } from "@/lib/api";
 import ContactForm from "@/components/ContactForm";
+import DressGallery from "@/components/DressGallery";
 
 export default async function DressDetailPage({
   params,
@@ -19,31 +19,7 @@ export default async function DressDetailPage({
   return (
     <div className="mx-auto max-w-6xl px-6 py-16">
       <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
-        <div className="grid grid-cols-2 gap-3">
-          {dress.images.length === 0 ? (
-            <div className="col-span-2 flex aspect-[3/4] items-center justify-center bg-ivory text-charcoal/30">
-              No images yet
-            </div>
-          ) : (
-            dress.images.map((image, i) => (
-              <div
-                key={image.id}
-                className={`relative aspect-[3/4] overflow-hidden bg-ivory ${
-                  i === 0 ? "col-span-2" : ""
-                }`}
-              >
-                <Image
-                  src={image.image_url}
-                  alt={image.alt_text ?? dress.name}
-                  fill
-                  className="object-cover"
-                  sizes="(min-width: 768px) 45vw, 100vw"
-                  priority={i === 0}
-                />
-              </div>
-            ))
-          )}
-        </div>
+        <DressGallery images={dress.images} name={dress.name} />
 
         <div>
           {dress.collection && (

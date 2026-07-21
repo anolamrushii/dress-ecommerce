@@ -6,12 +6,16 @@ const config: Config = {
     extend: {
       colors: {
         gold: {
-          DEFAULT: "#A7853B",
-          dark: "#8A6B2C",
-          light: "#D8C48F",
+          DEFAULT: "oklch(var(--color-gold) / <alpha-value>)",
+          dark: "oklch(var(--color-gold-dark) / <alpha-value>)",
+          light: "oklch(var(--color-gold-light) / <alpha-value>)",
         },
-        ivory: "#FAF8F3",
-        charcoal: "#1F1E1C",
+        ivory: "oklch(var(--color-ivory) / <alpha-value>)",
+        charcoal: "oklch(var(--color-charcoal) / <alpha-value>)",
+        border: "oklch(var(--color-border) / <alpha-value>)",
+        background: "oklch(var(--color-background) / <alpha-value>)",
+        foreground: "oklch(var(--color-foreground) / <alpha-value>)",
+        "muted-foreground": "oklch(var(--color-muted-foreground) / <alpha-value>)",
       },
       fontFamily: {
         heading: ["var(--font-cormorant)", "serif"],

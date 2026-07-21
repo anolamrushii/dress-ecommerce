@@ -1,13 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { deleteCollection, getCollections } from "@/lib/api";
 import { clearToken, getToken } from "@/lib/auth";
 import type { Collection } from "@/lib/types";
 import CollectionTable from "@/components/admin/CollectionTable";
 import CollectionForm from "@/components/admin/CollectionForm";
+import AdminNav from "@/components/admin/AdminNav";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import Modal from "@/components/admin/Modal";
+import FabButton from "@/components/admin/FabButton";
+import { FIELD_INPUT } from "@/lib/adminStyles";
 
 export default function AdminCollectionsPage() {
   const router = useRouter();
@@ -16,6 +20,7 @@ export default function AdminCollectionsPage() {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingCollection, setEditingCollection] = useState<Collection | null>(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const t = getToken();
@@ -74,61 +79,65 @@ export default function AdminCollectionsPage() {
     if (token) loadCollections(token);
   }
 
+  function closeForm() {
+    setShowForm(false);
+    setEditingCollection(null);
+  }
+
+  const filteredCollections = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return collections;
+    return collections.filter(
+      (c) => c.name.toLowerCase().includes(q) || c.slug.toLowerCase().includes(q),
+    );
+  }, [collections, search]);
+
   if (!token) return null;
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-heading text-3xl text-charcoal">Collections</h1>
-          <Link
-            href="/admin/dashboard"
-            className="font-body text-sm text-charcoal/60 hover:text-gold-dark hover:underline"
-          >
-            &larr; Back to dresses
-          </Link>
-        </div>
-        <button
-          onClick={handleLogout}
-          className="font-body text-sm text-charcoal/60 hover:text-gold-dark hover:underline"
-        >
-          Log out
-        </button>
+    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
+      <AdminNav onLogout={handleLogout} />
+
+      <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="font-heading text-2xl text-charcoal sm:text-3xl">
+          Collections <span className="text-lg text-muted-foreground">({collections.length})</span>
+        </h1>
+        {collections.length > 0 && (
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search by name or slug..."
+            className={`${FIELD_INPUT} sm:max-w-xs`}
+          />
+        )}
       </div>
 
-      <div className="mt-10">
+      <div className="mt-6 pb-24">
         {loading ? (
-          <p className="font-body text-charcoal/60">Loading...</p>
+          <LoadingSpinner />
         ) : (
-          <CollectionTable collections={collections} onEdit={handleEdit} onDelete={handleDelete} />
+          <CollectionTable
+            collections={filteredCollections}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
         )}
       </div>
 
-      <div className="mt-12 border-t border-gold-light/40 pt-10">
-        {showForm ? (
-          <>
-            <h2 className="mb-6 font-heading text-2xl text-charcoal">
-              {editingCollection ? `Edit "${editingCollection.name}"` : "Add New Collection"}
-            </h2>
-            <CollectionForm
-              token={token}
-              initialCollection={editingCollection}
-              onSaved={handleSaved}
-              onCancel={() => {
-                setShowForm(false);
-                setEditingCollection(null);
-              }}
-            />
-          </>
-        ) : (
-          <button
-            onClick={handleAddNew}
-            className="bg-gold px-8 py-3 font-body text-sm uppercase tracking-widest text-white transition-colors hover:bg-gold-dark"
-          >
-            Add New Collection
-          </button>
-        )}
-      </div>
+      <FabButton onClick={handleAddNew} label="Add new collection" />
+
+      <Modal
+        open={showForm}
+        onClose={closeForm}
+        title={editingCollection ? `Edit "${editingCollection.name}"` : "Add New Collection"}
+      >
+        <CollectionForm
+          token={token}
+          initialCollection={editingCollection}
+          onSaved={handleSaved}
+          onCancel={closeForm}
+        />
+      </Modal>
     </div>
   );
 }
