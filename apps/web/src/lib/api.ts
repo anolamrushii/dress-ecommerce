@@ -92,6 +92,21 @@ export function deleteCollection(id: string, token: string): Promise<void> {
   return request<void>(`/collections/${id}`, { method: "DELETE", token });
 }
 
+export function uploadCollectionCoverImage(
+  collectionId: string,
+  file: File,
+  token: string,
+): Promise<Collection> {
+  const formData = new FormData();
+  formData.append("file", file);
+  return request<Collection>(`/collections/${collectionId}/cover-image`, {
+    method: "POST",
+    body: formData,
+    token,
+    isFormData: true,
+  });
+}
+
 // ---------------------------------------------------------------------------
 // Public: dresses
 // ---------------------------------------------------------------------------
@@ -134,6 +149,10 @@ export function uploadDressImage(dressId: string, file: File, token: string): Pr
     token,
     isFormData: true,
   });
+}
+
+export function deleteDressImage(dressId: string, imageId: string, token: string): Promise<void> {
+  return request<void>(`/dresses/${dressId}/images/${imageId}`, { method: "DELETE", token });
 }
 
 // ---------------------------------------------------------------------------

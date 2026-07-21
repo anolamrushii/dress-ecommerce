@@ -1,8 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState, type FormEvent } from "react";
-import { createDress, getCollections, updateDress, uploadDressImage } from "@/lib/api";
-import type { Collection, Dress } from "@/lib/types";
+import {
+  createDress,
+  deleteDressImage,
+  getCollections,
+  updateDress,
+  uploadDressImage,
+} from "@/lib/api";
+import type { Collection, Dress, DressImage } from "@/lib/types";
 import { BUTTON_PRIMARY, BUTTON_SECONDARY, FIELD_INPUT, FIELD_LABEL } from "@/lib/adminStyles";
 import Toggle from "./Toggle";
 import ImageDropzone from "./ImageDropzone";
@@ -28,9 +35,27 @@ export default function DressForm({ token, initialDress, onSaved, onCancel }: Dr
   const [isFeatured, setIsFeatured] = useState(initialDress?.is_featured ?? false);
   const [isPublished, setIsPublished] = useState(initialDress?.is_published ?? true);
   const [files, setFiles] = useState<File[]>([]);
+  const [existingImages, setExistingImages] = useState<DressImage[]>(initialDress?.images ?? []);
+  const [removingImageId, setRemovingImageId] = useState<string | null>(null);
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  async function handleRemoveExistingImage(image: DressImage) {
+    if (!initialDress) return;
+    if (!confirm("Remove this photo? This cannot be undone.")) return;
+
+    setRemovingImageId(image.id);
+    setError(null);
+    try {
+      await deleteDressImage(initialDress.id, image.id, token);
+      setExistingImages((imgs) => imgs.filter((img) => img.id !== image.id));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to remove image.");
+    } finally {
+      setRemovingImageId(null);
+    }
+  }
 
   useEffect(() => {
     getCollections(token)
@@ -167,6 +192,52 @@ export default function DressForm({ token, initialDress, onSaved, onCancel }: Dr
           description="Shown on the homepage"
         />
       </div>
+
+      {existingImages.length > 0 && (
+        <div>
+          <label className={FIELD_LABEL}>Current photos</label>
+          <div className="mt-2 grid grid-cols-3 gap-3 sm:grid-cols-4">
+            {existingImages.map((image) => (
+              <div
+                key={image.id}
+                className="group relative aspect-square overflow-hidden rounded bg-ivory"
+              >
+                <Image
+                  src={image.image_url}
+                  alt={image.alt_text ?? ""}
+                  fill
+                  className="object-cover"
+                  sizes="120px"
+                />
+                <button
+                  type="button"
+                  onClick={() => handleRemoveExistingImage(image)}
+                  disabled={removingImageId === image.id}
+                  aria-label="Remove photo"
+                  className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-charcoal/70 text-white transition-colors hover:bg-charcoal disabled:opacity-50"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-3.5 w-3.5"
+                    aria-hidden="true"
+                  >
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                  </svg>
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <ImageDropzone files={files} onChange={setFiles} label={isEditing ? "Add more images" : "Images"} />
 

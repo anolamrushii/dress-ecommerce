@@ -3,7 +3,7 @@ import uuid
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from sqlalchemy.orm import Session
 
-from app.cloudinary_client import upload_dress_image
+from app.cloudinary_client import CloudinaryNotConfiguredError, upload_dress_image
 from app.database import get_db
 from app.deps import get_current_admin, get_current_admin_optional
 from app.models import AdminUser, Dress, DressImage
@@ -108,7 +108,15 @@ async def upload_dress_image_route(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Dress not found")
 
     file_bytes = await file.read()
-    image_url = upload_dress_image(file_bytes)
+    try:
+        image_url = upload_dress_image(file_bytes)
+    except CloudinaryNotConfiguredError as exc:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail=f"Cloudinary upload failed: {exc}",
+        ) from exc
 
     next_sort_order = len(dress.images)
     image = DressImage(
@@ -121,3 +129,22 @@ async def upload_dress_image_route(
     db.commit()
     db.refresh(image)
     return image
+
+
+@router.delete("/{dress_id}/images/{image_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_dress_image(
+    dress_id: uuid.UUID,
+    image_id: uuid.UUID,
+    db: Session = Depends(get_db),
+    current_admin: AdminUser = Depends(get_current_admin),
+) -> None:
+    image = (
+        db.query(DressImage)
+        .filter(DressImage.id == image_id, DressImage.dress_id == dress_id)
+        .first()
+    )
+    if image is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Image not found")
+
+    db.delete(image)
+    db.commit()

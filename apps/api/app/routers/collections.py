@@ -1,8 +1,9 @@
 import uuid
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from sqlalchemy.orm import Session
 
+from app.cloudinary_client import CloudinaryNotConfiguredError, upload_dress_image
 from app.database import get_db
 from app.deps import get_current_admin, get_current_admin_optional
 from app.models import AdminUser, Collection
@@ -76,6 +77,34 @@ def update_collection(
     for field, value in updates.items():
         setattr(collection, field, value)
 
+    db.commit()
+    db.refresh(collection)
+    return collection
+
+
+@router.post("/{collection_id}/cover-image", response_model=CollectionOut)
+async def upload_collection_cover_image(
+    collection_id: uuid.UUID,
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_admin: AdminUser = Depends(get_current_admin),
+) -> Collection:
+    collection = db.get(Collection, collection_id)
+    if collection is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Collection not found")
+
+    file_bytes = await file.read()
+    try:
+        image_url = upload_dress_image(file_bytes, folder="egzona-abazi/collections")
+    except CloudinaryNotConfiguredError as exc:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail=f"Cloudinary upload failed: {exc}",
+        ) from exc
+
+    collection.cover_image_url = image_url
     db.commit()
     db.refresh(collection)
     return collection

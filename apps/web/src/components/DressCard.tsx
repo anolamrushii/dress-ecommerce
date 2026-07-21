@@ -7,7 +7,7 @@ export default function DressCard({ dress }: { dress: Dress }) {
 
   return (
     <Link href={`/dress/${dress.slug}`} className="group block">
-      <div className="relative aspect-[3/4] w-full overflow-hidden bg-ivory">
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-ivory shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
         {cover ? (
           <Image
             src={cover.image_url}

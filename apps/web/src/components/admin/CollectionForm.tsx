@@ -1,10 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { useState, type FormEvent } from "react";
-import { createCollection, updateCollection } from "@/lib/api";
+import { createCollection, updateCollection, uploadCollectionCoverImage } from "@/lib/api";
 import type { Collection } from "@/lib/types";
 import { BUTTON_PRIMARY, BUTTON_SECONDARY, FIELD_INPUT, FIELD_LABEL } from "@/lib/adminStyles";
 import Toggle from "./Toggle";
+import ImageDropzone from "./ImageDropzone";
 
 interface CollectionFormProps {
   token: string;
@@ -25,11 +27,31 @@ export default function CollectionForm({
   const [slug, setSlug] = useState(initialCollection?.slug ?? "");
   const [season, setSeason] = useState(initialCollection?.season ?? "");
   const [description, setDescription] = useState(initialCollection?.description ?? "");
-  const [coverImageUrl, setCoverImageUrl] = useState(initialCollection?.cover_image_url ?? "");
+  const [existingCoverImageUrl, setExistingCoverImageUrl] = useState(
+    initialCollection?.cover_image_url ?? "",
+  );
+  const [coverImageFile, setCoverImageFile] = useState<File[]>([]);
   const [isPublished, setIsPublished] = useState(initialCollection?.is_published ?? true);
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [removingCoverImage, setRemovingCoverImage] = useState(false);
+
+  async function handleRemoveCoverImage() {
+    if (!initialCollection) return;
+    if (!confirm("Remove the cover image? This cannot be undone.")) return;
+
+    setRemovingCoverImage(true);
+    setError(null);
+    try {
+      await updateCollection(initialCollection.id, { cover_image_url: null }, token);
+      setExistingCoverImageUrl("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to remove cover image.");
+    } finally {
+      setRemovingCoverImage(false);
+    }
+  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -41,14 +63,18 @@ export default function CollectionForm({
       slug,
       season: season || null,
       description: description || null,
-      cover_image_url: coverImageUrl || null,
       is_published: isPublished,
     };
 
     try {
-      const collection = isEditing
+      let collection = isEditing
         ? await updateCollection(initialCollection!.id, payload, token)
         : await createCollection(payload, token);
+
+      if (coverImageFile[0]) {
+        collection = await uploadCollectionCoverImage(collection.id, coverImageFile[0], token);
+      }
+
       onSaved(collection);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to save collection.");
@@ -89,16 +115,6 @@ export default function CollectionForm({
             className={FIELD_INPUT}
           />
         </div>
-        <div>
-          <label className={FIELD_LABEL}>Cover image URL</label>
-          <input
-            value={coverImageUrl}
-            onChange={(e) => setCoverImageUrl(e.target.value)}
-            placeholder="https://res.cloudinary.com/..."
-            className={FIELD_INPUT}
-          />
-        </div>
-
         <div className="sm:col-span-2">
           <label className={FIELD_LABEL}>Description</label>
           <textarea
@@ -108,6 +124,50 @@ export default function CollectionForm({
             className={FIELD_INPUT}
           />
         </div>
+      </div>
+
+      <div>
+        {existingCoverImageUrl && coverImageFile.length === 0 && (
+          <div className="relative mb-3 aspect-[3/2] w-full max-w-xs overflow-hidden rounded bg-ivory">
+            <Image
+              src={existingCoverImageUrl}
+              alt="Current cover image"
+              fill
+              className="object-cover"
+              sizes="320px"
+            />
+            <button
+              type="button"
+              onClick={handleRemoveCoverImage}
+              disabled={removingCoverImage}
+              aria-label="Remove cover image"
+              className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-charcoal/70 text-white transition-colors hover:bg-charcoal disabled:opacity-50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-3.5 w-3.5"
+                aria-hidden="true"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </button>
+          </div>
+        )}
+        <ImageDropzone
+          files={coverImageFile}
+          onChange={setCoverImageFile}
+          label={existingCoverImageUrl ? "Replace cover image" : "Cover image"}
+          maxFiles={1}
+        />
       </div>
 
       <Toggle

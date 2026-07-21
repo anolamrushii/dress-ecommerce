@@ -7,10 +7,13 @@ export default function ImageDropzone({
   files,
   onChange,
   label = "Images",
+  maxFiles,
 }: {
   files: File[];
   onChange: (files: File[]) => void;
   label?: string;
+  /** When set to 1, a new selection replaces the current file instead of appending. */
+  maxFiles?: number;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
@@ -25,6 +28,10 @@ export default function ImageDropzone({
 
   function addFiles(list: FileList | null) {
     if (!list || list.length === 0) return;
+    if (maxFiles === 1) {
+      onChange([list[0]]);
+      return;
+    }
     onChange([...files, ...Array.from(list)]);
   }
 
@@ -83,7 +90,7 @@ export default function ImageDropzone({
           ref={inputRef}
           type="file"
           accept="image/*"
-          multiple
+          multiple={maxFiles !== 1}
           className="hidden"
           onChange={(e) => {
             addFiles(e.target.files);
