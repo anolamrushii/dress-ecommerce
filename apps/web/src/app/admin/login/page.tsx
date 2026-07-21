@@ -4,6 +4,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { login } from "@/lib/api";
 import { getToken, setToken } from "@/lib/auth";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -11,12 +12,19 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [checkingSession, setCheckingSession] = useState(true);
 
   useEffect(() => {
     if (getToken()) {
       router.replace("/admin/dashboard");
+    } else {
+      setCheckingSession(false);
     }
   }, [router]);
+
+  if (checkingSession) {
+    return <LoadingSpinner />;
+  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();

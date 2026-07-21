@@ -87,7 +87,7 @@ export default function AdminDashboardPage() {
     );
   }, [dresses, search]);
 
-  if (!token) return null;
+  if (!token) return <LoadingSpinner />;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">

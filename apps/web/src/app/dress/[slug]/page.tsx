@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { ApiError, getDress } from "@/lib/api";
 import ContactForm from "@/components/ContactForm";
 import DressGallery from "@/components/DressGallery";
+import BackButton from "@/components/BackButton";
 
 export default async function DressDetailPage({
   params,
@@ -18,7 +19,9 @@ export default async function DressDetailPage({
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-16">
-      <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+      <BackButton />
+
+      <div className="mt-6 grid grid-cols-1 gap-12 md:grid-cols-2">
         <DressGallery images={dress.images} name={dress.name} />
 
         <div>
