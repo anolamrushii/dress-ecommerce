@@ -124,7 +124,7 @@ export default function AdminCollectionsPage() {
         )}
       </div>
 
-      <FabButton onClick={handleAddNew} label="Add new collection" />
+      <FabButton onClick={handleAddNew} label="Add Collection" />
 
       <Modal
         open={showForm}

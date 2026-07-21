@@ -5,7 +5,7 @@ export default function FabButton({ onClick, label }: { onClick: () => void; lab
     <button
       onClick={onClick}
       aria-label={label}
-      className="fixed bottom-6 right-6 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-gold text-white shadow-lg transition-transform hover:bg-gold-dark active:scale-95"
+      className="fixed bottom-6 right-6 z-30 flex items-center gap-2 rounded-lg bg-gold px-6 py-4 font-body text-sm font-medium uppercase tracking-wider text-white shadow-lg transition-transform hover:bg-gold-dark active:scale-95"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -17,12 +17,13 @@ export default function FabButton({ onClick, label }: { onClick: () => void; lab
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="h-6 w-6"
+        className="h-5 w-5 shrink-0"
         aria-hidden="true"
       >
         <path d="M12 5v14" />
         <path d="M5 12h14" />
       </svg>
+      {label}
     </button>
   );
 }
