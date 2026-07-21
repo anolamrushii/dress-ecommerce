@@ -1,7 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import fs from "node:fs";
 import path from "node:path";
+import MagneticLink from "@/components/MagneticLink";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const PORTRAIT_CANDIDATES = ["/images/designer-portrait.jpg", "/images/designer-portrait.png"];
 
@@ -26,7 +27,7 @@ export default function DesignerBio() {
   return (
     <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16">
-        <div className="relative aspect-[4/5] w-full overflow-hidden bg-charcoal shadow-sm">
+        <ScrollReveal y={40} className="relative aspect-[4/5] w-full overflow-hidden bg-charcoal shadow-sm">
           {portrait ? (
             <Image
               src={portrait}
@@ -50,9 +51,9 @@ export default function DesignerBio() {
               Est. 2016
             </p>
           </div>
-        </div>
+        </ScrollReveal>
 
-        <div className="flex flex-col justify-center">
+        <ScrollReveal y={40} delay={0.15} className="flex flex-col justify-center">
           <p className="font-body text-xs uppercase tracking-[0.2em] text-gold-dark">
             The Designer
           </p>
@@ -84,14 +85,14 @@ export default function DesignerBio() {
             ))}
           </div>
 
-          <Link
+          <MagneticLink
             href="/about"
             className="group mt-8 flex w-fit items-center gap-1 font-body text-xs uppercase tracking-widest text-charcoal transition-colors hover:text-gold"
           >
             Read Her Story
             <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </Link>
-        </div>
+          </MagneticLink>
+        </ScrollReveal>
       </div>
     </section>
   );

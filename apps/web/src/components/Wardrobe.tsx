@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import MagneticLink from "@/components/MagneticLink";
+import ScrollReveal from "@/components/ScrollReveal";
 import type { Collection } from "@/lib/types";
 
 export default function Wardrobe({ collections }: { collections: Collection[] }) {
@@ -8,7 +10,7 @@ export default function Wardrobe({ collections }: { collections: Collection[] })
   return (
     <section className="bg-ivory py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+        <ScrollReveal className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="font-body text-xs uppercase tracking-[0.2em] text-gold-dark">
               The Wardrobe
@@ -17,20 +19,20 @@ export default function Wardrobe({ collections }: { collections: Collection[] })
               Three ways to be dressed by Egzona.
             </h2>
           </div>
-          <Link
+          <MagneticLink
             href="/collections"
             className="font-body text-xs uppercase tracking-widest text-charcoal transition-colors hover:text-gold"
           >
             View All →
-          </Link>
-        </div>
+          </MagneticLink>
+        </ScrollReveal>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <ScrollReveal className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3" stagger={0.12}>
           {collections.slice(0, 3).map((collection) => (
             <Link
               key={collection.id}
               href={`/collections/${collection.slug}`}
-              className="group relative block aspect-[3/4] overflow-hidden bg-charcoal shadow-sm transition-shadow duration-300 hover:shadow-xl"
+              className="group relative block aspect-[3/4] overflow-hidden bg-charcoal shadow-sm transition-shadow duration-300 hover:shadow-xl active:shadow-xl"
             >
               {collection.cover_image_url ? (
                 <Image
@@ -38,7 +40,7 @@ export default function Wardrobe({ collections }: { collections: Collection[] })
                   alt={collection.name}
                   fill
                   sizes="(min-width: 640px) 33vw, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105 group-active:scale-105"
                 />
               ) : (
                 <div className="absolute inset-0 bg-gradient-to-br from-charcoal to-gold-dark" />
@@ -54,7 +56,7 @@ export default function Wardrobe({ collections }: { collections: Collection[] })
               </div>
             </Link>
           ))}
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -1,11 +1,5 @@
 import Link from "next/link";
-
-// TODO: replace with the real profile URLs.
-const SOCIAL_LINKS = [
-  { label: "Instagram", href: "#" },
-  { label: "Facebook", href: "#" },
-  { label: "TikTok", href: "#" },
-];
+import SocialLinks from "./SocialLinks";
 
 const EXPLORE_LINKS = [
   { label: "Home", href: "/" },
@@ -17,39 +11,6 @@ const EXPLORE_LINKS = [
 
 const MAP_EMBED_SRC =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3634.8562711850677!2d21.149182276585957!3d42.368033534597096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13537f0928d779ff%3A0x43a1154b0dcfe660!2sEgzona%20Abazi%20Fashion%20Designer!5e1!3m2!1sen!2s!4v1784654495085!5m2!1sen!2s";
-
-function InstagramIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5">
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-function FacebookIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5">
-      <path d="M15 3h-2a4 4 0 0 0-4 4v3H7v4h2v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-    </svg>
-  );
-}
-
-function TikTokIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-5 w-5">
-      <path d="M14 3v10.5a3.5 3.5 0 1 1-3-3.46" />
-      <path d="M14 3c.5 2.5 2.2 4.2 4.5 4.5" />
-    </svg>
-  );
-}
-
-const ICONS: Record<string, () => React.ReactElement> = {
-  Instagram: InstagramIcon,
-  Facebook: FacebookIcon,
-  TikTok: TikTokIcon,
-};
 
 export default function Footer() {
   return (
@@ -65,23 +26,10 @@ export default function Footer() {
               Contemporary silhouettes, timeless craft. Made by hand in the
               atelier.
             </p>
-            <div className="mt-5 flex gap-4">
-              {SOCIAL_LINKS.map((social) => {
-                const Icon = ICONS[social.label];
-                return (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
-                    className="text-charcoal transition-colors hover:text-gold"
-                  >
-                    <Icon />
-                  </a>
-                );
-              })}
-            </div>
+            <SocialLinks
+              className="mt-5 flex gap-4"
+              iconClassName="text-charcoal transition-colors hover:text-gold"
+            />
           </div>
 
           <div>
@@ -90,7 +38,7 @@ export default function Footer() {
             </p>
             <ul className="mt-4 space-y-3">
               {EXPLORE_LINKS.map((link) => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <Link
                     href={link.href}
                     className="font-body text-sm text-charcoal/80 transition-colors hover:text-gold"

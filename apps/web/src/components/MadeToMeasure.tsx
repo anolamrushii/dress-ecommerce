@@ -1,9 +1,10 @@
-import Link from "next/link";
+import MagneticLink from "@/components/MagneticLink";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default function MadeToMeasure() {
   return (
     <section className="bg-charcoal py-16 md:py-24">
-      <div className="mx-auto flex max-w-3xl flex-col items-center px-6 text-center">
+      <ScrollReveal className="mx-auto flex max-w-3xl flex-col items-center px-6 text-center">
         <p className="font-body text-xs uppercase tracking-[0.2em] text-gold-light">
           Made to Measure
         </p>
@@ -15,13 +16,13 @@ export default function MadeToMeasure() {
           Book a private fitting at the atelier and work directly with Egzona
           on fabric, silhouette, and fit.
         </p>
-        <Link
+        <MagneticLink
           href="/contact"
           className="mt-8 border border-white/70 px-8 py-3 font-body text-xs uppercase tracking-widest text-white transition-all duration-200 hover:bg-white hover:text-charcoal hover:shadow-lg sm:text-sm"
         >
           Book a Fitting
-        </Link>
-      </div>
+        </MagneticLink>
+      </ScrollReveal>
     </section>
   );
 }
