@@ -5,7 +5,6 @@ import SignaturePieces from "@/components/SignaturePieces";
 import Wardrobe from "@/components/Wardrobe";
 import DesignerBio from "@/components/DesignerBio";
 import Testimonial from "@/components/Testimonial";
-import MadeToMeasure from "@/components/MadeToMeasure";
 
 export default async function HomePage() {
   const [dresses, collections] = await Promise.all([
@@ -21,7 +20,6 @@ export default async function HomePage() {
       <SignaturePieces dresses={featured} />
       <Wardrobe collections={collections} />
       <DesignerBio />
-      <MadeToMeasure />
       <Testimonial />
     </div>
   );
