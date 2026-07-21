@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { ApiError, getCollection, getDresses } from "@/lib/api";
 import DressCard from "@/components/DressCard";
+import BackButton from "@/components/BackButton";
 
 export default async function CollectionDetailPage({
   params,
@@ -20,7 +21,9 @@ export default async function CollectionDetailPage({
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-20">
-      <div className="text-center">
+      <BackButton />
+
+      <div className="mt-6 text-center">
         {collection.season && (
           <p className="font-body text-xs uppercase tracking-widest text-gold-dark">
             {collection.season}

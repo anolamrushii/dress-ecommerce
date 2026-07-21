@@ -1,5 +1,6 @@
 import { getCollections } from "@/lib/api";
 import CollectionCard from "@/components/CollectionCard";
+import BackButton from "@/components/BackButton";
 
 export const metadata = { title: "Collections | Egzona Abazi" };
 
@@ -8,7 +9,9 @@ export default async function CollectionsPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-20">
-      <h1 className="text-center font-heading text-4xl text-charcoal">Collections</h1>
+      <BackButton href="/" label="Back to Home" />
+
+      <h1 className="mt-6 text-center font-heading text-4xl text-charcoal">Collections</h1>
 
       {collections.length === 0 ? (
         <p className="mt-10 text-center font-body text-charcoal/60">

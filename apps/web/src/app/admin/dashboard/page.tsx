@@ -115,7 +115,7 @@ export default function AdminDashboardPage() {
         )}
       </div>
 
-      <FabButton onClick={handleAddNew} label="Add new dress" />
+      <FabButton onClick={handleAddNew} label="Add Dress" />
 
       <Modal
         open={showForm}
