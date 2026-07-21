@@ -21,6 +21,11 @@ body {
   @apply bg-white text-charcoal font-body;
 }
 
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
 h1,
 h2,
 h3,

@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import BackToTop from "@/components/BackToTop";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
+        <BackToTop />
       </body>
     </html>
   );

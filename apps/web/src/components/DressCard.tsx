@@ -6,14 +6,14 @@ export default function DressCard({ dress }: { dress: Dress }) {
   const cover = dress.images[0];
 
   return (
-    <Link href={`/dress/${dress.slug}`} className="group block">
-      <div className="relative aspect-[3/4] w-full overflow-hidden bg-ivory shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
+    <Link href={`/dress/${dress.slug}`} className="group block transition-opacity active:opacity-80">
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-ivory shadow-sm transition-shadow duration-300 group-hover:shadow-lg group-active:shadow-lg">
         {cover ? (
           <Image
             src={cover.image_url}
             alt={cover.alt_text ?? dress.name}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-105 group-active:scale-105"
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 100vw"
           />
         ) : (

@@ -1,7 +1,9 @@
+import ScrollReveal from "@/components/ScrollReveal";
+
 export default function Testimonial() {
   return (
     <section className="bg-white py-16 md:py-24">
-      <div className="mx-auto max-w-3xl px-6 text-center">
+      <ScrollReveal className="mx-auto max-w-3xl px-6 text-center">
         <p className="font-body text-xs uppercase tracking-[0.2em] text-gold-dark">
           In Their Words
         </p>
@@ -14,7 +16,7 @@ export default function Testimonial() {
         <p className="mt-6 font-body text-xs uppercase tracking-[0.15em] text-charcoal/50">
           Client Name · Bridal Commission
         </p>
-      </div>
+      </ScrollReveal>
     </section>
   );
 }
