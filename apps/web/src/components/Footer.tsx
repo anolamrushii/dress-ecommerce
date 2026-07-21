@@ -12,7 +12,6 @@ const EXPLORE_LINKS = [
   { label: "Collections", href: "/collections" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
-  { label: "Made to Measure", href: "/contact" },
 ];
 
 const MAP_EMBED_SRC =
