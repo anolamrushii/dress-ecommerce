@@ -1,19 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import NextLink from "next/link";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 import SocialLinks from "./SocialLinks";
 
-const LEFT_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/collections", label: "Collections" },
-];
-
-const RIGHT_LINKS = [
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
+function useNavLinks() {
+  const t = useTranslations("Header");
+  return {
+    left: [
+      { href: "/", label: t("home") },
+      { href: "/collections", label: t("collections") },
+    ],
+    right: [
+      { href: "/about", label: t("about") },
+      { href: "/contact", label: t("contact") },
+    ],
+  };
+}
 
 function NavLink({ href, label }: { href: string; label: string }) {
   const pathname = usePathname();
@@ -97,9 +102,32 @@ function CloseIcon() {
   );
 }
 
+function LanguageSwitcher() {
+  const pathname = usePathname();
+
+  // Admin isn't part of the localized route tree, so switching locale on an
+  // admin path would 404 — hide the switcher there.
+  if (pathname.startsWith("/admin")) return null;
+
+  return (
+    <div className="flex items-center gap-1 font-body text-[0.65rem] font-medium uppercase tracking-widest text-charcoal/60">
+      <Link href={pathname} locale="en" className="transition-colors hover:text-gold">
+        EN
+      </Link>
+      <span aria-hidden="true">/</span>
+      <Link href={pathname} locale="sq" className="transition-colors hover:text-gold">
+        SQ
+      </Link>
+    </div>
+  );
+}
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { left: LEFT_LINKS, right: RIGHT_LINKS } = useNavLinks();
+  const tHeader = useTranslations("Header");
+  const tCommon = useTranslations("Common");
   const MOBILE_LINKS = [...LEFT_LINKS, ...RIGHT_LINKS];
 
   function closeMenu() {
@@ -119,49 +147,53 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-border bg-white/90 backdrop-blur-sm">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 md:h-20">
-        <button
-          className={`relative z-[60] -m-2 p-2 text-charcoal transition-opacity duration-300 md:hidden ${
-            menuOpen ? "pointer-events-none opacity-0" : "opacity-100"
-          }`}
-          aria-label="Open menu"
-          onClick={() => setMenuOpen(true)}
-        >
-          <MenuIcon />
-        </button>
-
-        <nav className="hidden gap-10 md:flex">
-          {LEFT_LINKS.map((link) => (
-            <NavLink key={link.href} href={link.href} label={link.label} />
-          ))}
-        </nav>
-
-        <Link href="/" className="text-center">
-          <div className="font-heading text-2xl leading-none tracking-tight text-charcoal md:text-3xl">
-            Egzona Abazi
-          </div>
-          <div className="mt-1 font-body text-[0.55rem] uppercase tracking-[0.22em] text-muted-foreground">
-            Fashion Designer
-          </div>
-        </Link>
-
-        <div className="hidden items-center gap-10 md:flex">
-          {RIGHT_LINKS.map((link) => (
-            <NavLink key={link.href} href={link.href} label={link.label} />
-          ))}
-          <Link
-            href="/admin/login"
-            aria-label="Admin"
-            className="text-charcoal transition-colors hover:text-gold"
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 md:h-20">
+          <button
+            className={`relative z-[60] -m-2 p-2 text-charcoal transition-opacity duration-300 md:hidden ${
+              menuOpen ? "pointer-events-none opacity-0" : "opacity-100"
+            }`}
+            aria-label={tHeader("openMenu")}
+            onClick={() => setMenuOpen(true)}
           >
-            <AdminIcon className="h-5 w-5" />
-          </Link>
-        </div>
+            <MenuIcon />
+          </button>
 
-        <Link href="/admin/login" aria-label="Admin" className="-m-2 p-2 text-charcoal md:hidden">
-          <AdminIcon className="h-5 w-5" />
-        </Link>
-      </div>
+          <nav className="hidden gap-10 md:flex">
+            {LEFT_LINKS.map((link) => (
+              <NavLink key={link.href} href={link.href} label={link.label} />
+            ))}
+          </nav>
+
+          <Link href="/" className="text-center">
+            <div className="font-heading text-2xl leading-none tracking-tight text-charcoal md:text-3xl">
+              {tCommon("brand")}
+            </div>
+            <div className="mt-1 font-body text-[0.55rem] uppercase tracking-[0.22em] text-muted-foreground">
+              {tCommon("tagline")}
+            </div>
+          </Link>
+
+          <div className="hidden items-center gap-8 md:flex">
+            {RIGHT_LINKS.map((link) => (
+              <NavLink key={link.href} href={link.href} label={link.label} />
+            ))}
+            <LanguageSwitcher />
+            <NextLink
+              href="/admin/login"
+              aria-label={tHeader("admin")}
+              className="text-charcoal transition-colors hover:text-gold"
+            >
+              <AdminIcon className="h-5 w-5" />
+            </NextLink>
+          </div>
+
+          <div className="flex items-center gap-3 md:hidden">
+            <LanguageSwitcher />
+            <Link href="/admin/login" aria-label={tHeader("admin")} className="-m-2 p-2 text-charcoal">
+              <AdminIcon className="h-5 w-5" />
+            </Link>
+          </div>
+        </div>
       </header>
 
       <div
@@ -169,11 +201,11 @@ export default function Header() {
           menuOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         aria-hidden={!menuOpen}
-        {...(!menuOpen ? { inert: "" } : {})}
+        {...(!menuOpen ? { inert: "" as unknown as boolean } : {})}
       >
         <button
           className="absolute right-6 top-5 -m-2 p-2 text-charcoal transition-transform duration-300 hover:rotate-90"
-          aria-label="Close menu"
+          aria-label={tHeader("closeMenu")}
           onClick={closeMenu}
         >
           <CloseIcon />
@@ -185,7 +217,7 @@ export default function Header() {
           }`}
           style={{ transitionDelay: menuOpen ? "80ms" : "0ms" }}
         >
-          Egzona Abazi
+          {tCommon("brand")}
         </span>
 
         <nav className="mt-8 flex w-64 flex-col divide-y divide-border">
@@ -225,7 +257,7 @@ export default function Header() {
           }`}
           style={{ transitionDelay: menuOpen ? "480ms" : "0ms" }}
         >
-          Book a Private Fitting
+          {tHeader("bookFitting")}
         </Link>
 
         <SocialLinks

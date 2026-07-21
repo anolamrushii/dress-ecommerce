@@ -1,6 +1,7 @@
 import Image from "next/image";
 import fs from "node:fs";
 import path from "node:path";
+import { useTranslations } from "next-intl";
 
 const CRAFT_IMAGES = ["/images/craft-1.jpg", "/images/craft-2.jpg", "/images/craft-3.jpg"];
 
@@ -12,6 +13,7 @@ function findCraftImages(): string[] {
 
 export default function TheCraft() {
   const images = findCraftImages();
+  const t = useTranslations("About.craft");
 
   return (
     <section className="bg-ivory py-16 md:py-24">
@@ -19,17 +21,13 @@ export default function TheCraft() {
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
             <p className="font-body text-xs uppercase tracking-[0.2em] text-gold-dark">
-              The Craft
+              {t("eyebrow")}
             </p>
             <h2 className="mt-3 font-heading text-3xl text-charcoal md:text-4xl">
-              Hands, thread, hours.
+              {t("heading")}
             </h2>
           </div>
-          <p className="max-w-sm font-body text-sm text-charcoal/60">
-            A single evening dress takes between 60 and 200 hours in the
-            atelier. Beading, hand-rolled hems and silk linings account for
-            most of them.
-          </p>
+          <p className="max-w-sm font-body text-sm text-charcoal/60">{t("text")}</p>
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -40,7 +38,7 @@ export default function TheCraft() {
                 {src ? (
                   <Image
                     src={src}
-                    alt="A dress finished in the atelier"
+                    alt={t("imageAlt")}
                     fill
                     sizes="(min-width: 640px) 33vw, 100vw"
                     className="object-cover"

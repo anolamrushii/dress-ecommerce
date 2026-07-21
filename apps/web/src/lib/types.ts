@@ -3,7 +3,8 @@ export interface Collection {
   name: string;
   slug: string;
   season: string | null;
-  description: string | null;
+  description_en: string | null;
+  description_sq: string | null;
   cover_image_url: string | null;
   is_published: boolean;
   created_at: string;
@@ -14,7 +15,8 @@ export interface CollectionInput {
   name: string;
   slug: string;
   season?: string | null;
-  description?: string | null;
+  description_en?: string | null;
+  description_sq?: string | null;
   cover_image_url?: string | null;
   is_published?: boolean;
 }
@@ -31,7 +33,8 @@ export interface Dress {
   collection_id: string | null;
   name: string;
   slug: string;
-  description: string | null;
+  description_en: string | null;
+  description_sq: string | null;
   fabric: string | null;
   sizes: string[] | null;
   price: string | null;
@@ -47,7 +50,8 @@ export interface DressInput {
   collection_id?: string | null;
   name: string;
   slug: string;
-  description?: string | null;
+  description_en?: string | null;
+  description_sq?: string | null;
   fabric?: string | null;
   sizes?: string[] | null;
   price?: number | null;

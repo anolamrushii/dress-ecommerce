@@ -1,13 +1,10 @@
+import { useTranslations } from "next-intl";
 import ScrollReveal from "@/components/ScrollReveal";
 
-const STATS = [
-  "Handmade in the Atelier",
-  "Limited Runs · Numbered Pieces",
-  "Complimentary Fittings",
-  "Worldwide Shipping",
-];
-
 export default function StatsStrip() {
+  const t = useTranslations("Stats");
+  const stats = [t("handmade"), t("limitedRuns"), t("fittings"), t("shipping")];
+
   return (
     <section className="border-b border-border bg-ivory">
       <ScrollReveal
@@ -15,7 +12,7 @@ export default function StatsStrip() {
         y={16}
         stagger={0.08}
       >
-        {STATS.map((stat, i) => (
+        {stats.map((stat, i) => (
           <span
             key={stat}
             className={`flex w-full items-center justify-center gap-x-3 sm:w-auto sm:gap-x-5 ${

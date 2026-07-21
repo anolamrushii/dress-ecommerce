@@ -1,10 +1,13 @@
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import MagneticLink from "@/components/MagneticLink";
 import ScrollReveal from "@/components/ScrollReveal";
 import type { Collection } from "@/lib/types";
 
 export default function Wardrobe({ collections }: { collections: Collection[] }) {
+  const t = useTranslations("Wardrobe");
+
   if (collections.length === 0) return null;
 
   return (
@@ -13,17 +16,17 @@ export default function Wardrobe({ collections }: { collections: Collection[] })
         <ScrollReveal className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="font-body text-xs uppercase tracking-[0.2em] text-gold-dark">
-              The Wardrobe
+              {t("eyebrow")}
             </p>
             <h2 className="mt-3 font-heading text-3xl text-charcoal md:text-4xl">
-              Three ways to be dressed by Egzona.
+              {t("heading")}
             </h2>
           </div>
           <MagneticLink
             href="/collections"
             className="font-body text-xs uppercase tracking-widest text-charcoal transition-colors hover:text-gold"
           >
-            View All →
+            {t("viewAll")}
           </MagneticLink>
         </ScrollReveal>
 

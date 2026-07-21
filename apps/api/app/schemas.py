@@ -25,7 +25,8 @@ class CollectionBase(BaseModel):
     name: str
     slug: str
     season: str | None = None
-    description: str | None = None
+    description_en: str | None = None
+    description_sq: str | None = None
     cover_image_url: str | None = None
     is_published: bool = False
 
@@ -38,7 +39,8 @@ class CollectionUpdate(BaseModel):
     name: str | None = None
     slug: str | None = None
     season: str | None = None
-    description: str | None = None
+    description_en: str | None = None
+    description_sq: str | None = None
     cover_image_url: str | None = None
     is_published: bool | None = None
 
@@ -50,7 +52,8 @@ class CollectionOut(BaseModel):
     name: str
     slug: str
     season: str | None = None
-    description: str | None = None
+    description_en: str | None = None
+    description_sq: str | None = None
     cover_image_url: str | None = None
     is_published: bool
     created_at: datetime
@@ -76,7 +79,8 @@ class DressBase(BaseModel):
     collection_id: uuid.UUID | None = None
     name: str
     slug: str
-    description: str | None = None
+    description_en: str | None = None
+    description_sq: str | None = None
     fabric: str | None = None
     sizes: list[str] | None = None
     price: Decimal | None = None
@@ -92,7 +96,8 @@ class DressUpdate(BaseModel):
     collection_id: uuid.UUID | None = None
     name: str | None = None
     slug: str | None = None
-    description: str | None = None
+    description_en: str | None = None
+    description_sq: str | None = None
     fabric: str | None = None
     sizes: list[str] | None = None
     price: Decimal | None = None
@@ -107,7 +112,8 @@ class DressOut(BaseModel):
     collection_id: uuid.UUID | None = None
     name: str
     slug: str
-    description: str | None = None
+    description_en: str | None = None
+    description_sq: str | None = None
     fabric: str | None = None
     sizes: list[str] | None = None
     price: Decimal | None = None
