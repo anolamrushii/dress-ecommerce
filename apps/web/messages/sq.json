@@ -163,5 +163,11 @@
     "sending": "Duke dërguar...",
     "success": "Faleminderit — kërkesa juaj u dërgua. Ekipi i Egzonës do t'ju kontaktojë së shpejti.",
     "genericError": "Diçka shkoi keq. Ju lutemi provoni përsëri."
+  },
+  "Error": {
+    "heading": "Diçka shkoi keq",
+    "text": "Atelieja nuk mundi ta ngarkojë këtë faqe. Ju lutemi provoni përsëri pas pak.",
+    "retry": "Provo Përsëri",
+    "backToHome": "Kthehu në Kreu"
   }
 }

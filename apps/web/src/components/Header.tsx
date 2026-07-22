@@ -111,11 +111,11 @@ function LanguageSwitcher() {
 
   return (
     <div className="flex items-center gap-1 font-body text-[0.65rem] font-medium uppercase tracking-widest text-charcoal/60">
-      <Link href={pathname} locale="en" className="transition-colors hover:text-gold">
+      <Link href={pathname} locale="en" replace className="transition-colors hover:text-gold">
         EN
       </Link>
       <span aria-hidden="true">/</span>
-      <Link href={pathname} locale="sq" className="transition-colors hover:text-gold">
+      <Link href={pathname} locale="sq" replace className="transition-colors hover:text-gold">
         SQ
       </Link>
     </div>
@@ -147,7 +147,7 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-border bg-white/90 backdrop-blur-sm">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 md:h-20">
+        <div className="relative mx-auto flex h-16 max-w-6xl items-center justify-between px-6 md:h-20">
           <button
             className={`relative z-[60] -m-2 p-2 text-charcoal transition-opacity duration-300 md:hidden ${
               menuOpen ? "pointer-events-none opacity-0" : "opacity-100"
@@ -164,7 +164,10 @@ export default function Header() {
             ))}
           </nav>
 
-          <Link href="/" className="text-center">
+          <Link
+            href="/"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
+          >
             <div className="font-heading text-2xl leading-none tracking-tight text-charcoal md:text-3xl">
               {tCommon("brand")}
             </div>
@@ -189,9 +192,9 @@ export default function Header() {
 
           <div className="flex items-center gap-3 md:hidden">
             <LanguageSwitcher />
-            <Link href="/admin/login" aria-label={tHeader("admin")} className="-m-2 p-2 text-charcoal">
+            <NextLink href="/admin/login" aria-label={tHeader("admin")} className="-m-2 p-2 text-charcoal">
               <AdminIcon className="h-5 w-5" />
-            </Link>
+            </NextLink>
           </div>
         </div>
       </header>
@@ -229,7 +232,7 @@ export default function Header() {
                 href={link.href}
                 onClick={closeMenu}
                 aria-current={isActive ? "page" : undefined}
-                className={`group flex items-center justify-center gap-3 py-4 font-heading text-2xl transition-all duration-500 ease-out hover:text-gold ${
+                className={`group grid grid-cols-[2rem_1fr_2rem] items-center py-4 font-heading text-2xl transition-all duration-500 ease-out hover:text-gold ${
                   isActive ? "font-semibold" : "text-charcoal"
                 } ${menuOpen ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
                 style={{
@@ -238,12 +241,13 @@ export default function Header() {
                 }}
               >
                 <span
-                  className="font-body text-[0.6rem] tracking-widest transition-colors group-hover:text-gold"
+                  className="justify-self-start font-body text-[0.6rem] tracking-widest transition-colors group-hover:text-gold"
                   style={{ color: isActive ? "oklch(58% 0.16 71 / 0.6)" : "oklch(var(--color-charcoal) / 0.35)" }}
                 >
                   0{i + 1}
                 </span>
-                {link.label}
+                <span className="text-center">{link.label}</span>
+                <span aria-hidden="true" />
               </Link>
             );
           })}

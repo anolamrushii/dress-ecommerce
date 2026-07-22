@@ -163,5 +163,11 @@
     "sending": "Sending...",
     "success": "Thank you — your inquiry has been sent. Egzona's team will be in touch soon.",
     "genericError": "Something went wrong. Please try again."
+  },
+  "Error": {
+    "heading": "Something went wrong",
+    "text": "The atelier couldn't load this page. Please try again in a moment.",
+    "retry": "Try Again",
+    "backToHome": "Back to Home"
   }
 }
